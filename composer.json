@@ -1,0 +1,21 @@
+{
+    "name": "zd/view-builder",
+    "description": "View builder of grid / form , for admin. Base on layui.",
+    "type": "library",
+    "require": {
+        "php": ">=7.2"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "ccbox",
+            "email": "ccbox.net@163.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "Ccbox\\ViewBuilder\\": "./src/"
+        }
+    }
+}
