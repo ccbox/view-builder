@@ -11,13 +11,21 @@
 
 require_once '../vendor/autoload.php';
 
-use Ccbox\ViewBuilder\Grid\Grid;
+// use Ccbox\ViewBuilder\Grid\Grid;
+use Ccbox\ViewBuilder\UiLibs\Layui\Grid;
 use Ccbox\ViewBuilder\Layout\Layout;
 
 $table = require_once './data_table.php';
 
 $grid = new Grid();
+
+$grid->page(2);
+
 $grid->title('表格头');
+
+$api = str_replace('index.php', '',$_SERVER['REQUEST_URI']) . 'api.php?type=table';
+$grid->url($api);
+
 
 $grid->col('id', 'ID')->width(80)->sortable()->fixed('left');
 $grid->col('username', '用户名');

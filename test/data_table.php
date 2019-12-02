@@ -92,7 +92,7 @@ $table['data2'] = [
 $table['respon'] = [
     "code" => 0,
     "msg" => "",
-    "count" => 1000,
+    "count" => count($table['data']),
     "data" => $table['data']
 ];
 
