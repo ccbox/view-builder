@@ -27,7 +27,22 @@ if(in_array($type, $type_arr)){
 
     $respon = $data['respon'];
 
-    // 分页处理：不写分页处理了
+    // 分页处理：
+    // $r_a = ($page-1) * $limit;
+    $r_b = $page * $limit;
+    $r_a = $r_b - $limit;
+    $r_b = $respon['count'] < $r_b ? $respon['count'] : $r_b;
+    if($respon['count']>$r_a){
+        $list = [];
+        if($r_b > $r_a){
+            for($i = $r_a; $i<$r_b; $i++){
+                $list[] = $respon['data'][$i];
+            }
+        }else{
+            $list[] = $respon['data'][$r_a];
+        }
+        $respon['data'] = $list;
+    }
 
     echo json_encode($respon, JSON_UNESCAPED_UNICODE);
 
