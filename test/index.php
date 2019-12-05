@@ -23,11 +23,13 @@ $grid->page(2);
 
 $grid->title('表格头');
 
+$grid->toolbar('default');
+
 $api = str_replace('index.php', '',$_SERVER['REQUEST_URI']) . 'api.php?type=table';
 $grid->url($api);
 
-
-$grid->col('id', 'ID')->width(80)->sortable()->fixed('left');
+$grid->col()->type('checkbox');
+// $grid->col('id', 'ID')->width(80)->sort()->fixed('left');
 $grid->col('username', '用户名');
 $grid->col('sex', '性别');
 $grid->col('city', '城市');
@@ -36,6 +38,9 @@ $grid->col('experience', '积分');
 $grid->col('score', '评分');
 $grid->col('classify', '职业');
 $grid->col('wealth', '财富');
+$grid->col()->toolbar(function(){
+    return 'toolbar';
+});
 
 $grid->data($table['data']);
 

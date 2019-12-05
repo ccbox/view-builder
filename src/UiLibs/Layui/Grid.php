@@ -13,6 +13,7 @@
 namespace Ccbox\ViewBuilder\UiLibs\Layui;
 
 use Ccbox\ViewBuilder\Grid\Grid as GridBase;
+use Ccbox\ViewBuilder\UiLibs\Layui\Col;
 
 /*
 https://www.layui.com/doc/modules/table.html
@@ -127,6 +128,15 @@ class Grid extends GridBase
             $this->elem = 'grid' . time();
         }
         return $this->elem;
+    }
+
+    
+
+    public function addCol($field = '', $label = '')
+    {
+        $column = new Col($field, $label);
+        // $column->setGrid($this);
+        return $column;
     }
 
     public function opTableRender()

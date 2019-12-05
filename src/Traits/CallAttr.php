@@ -17,7 +17,8 @@ trait CallAttr
     public function __call($method,$params)
     {
         if(in_array($method, $this->attributes)){
-            return $this->confAttribute($method, $params[0]);
+            $data = isset($params[0]) ? $params[0] : $params ;
+            return $this->confAttribute($method, $data);
         }
         // throw new Exception("The method cannot be found", 1);
     }

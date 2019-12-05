@@ -68,18 +68,18 @@ class Grid implements ViewInterface
     public function row()
     { }
 
-    public function col($name, $label)
+    public function col($field = '', $label = '')
     {
         $title = array_filter([$label]);
-        return $this->addCol($name, $title[0] ?? null);
+        $column = $this->addCol($field, $title[0] ?? null);
+        $this->cols[] = $column;
+        return $column;
     }
 
-    public function addCol($name = '', $label = '')
+    public function addCol($field = '', $label = '')
     {
-        $column = new Col($name, $label);
+        $column = new Col($field, $label);
         // $column->setGrid($this);
-
-        $this->cols[] = $column;
         return $column;
     }
 
