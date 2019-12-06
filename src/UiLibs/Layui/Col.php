@@ -118,17 +118,6 @@ class Col extends ColBase
         return $title;
     }
 
-    public function toolbar(Closure $callback)
-    {
-    //     if($data != 'normal'){
-    //         $this->field = null;
-    //         $this->title = null;
-    //     }
-    //     $this->type = $data;
-
-    //     return $this;
-    }
-
     public function getColConfig()
     {
         $fieldConfig = [

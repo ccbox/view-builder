@@ -130,22 +130,38 @@ class Grid extends GridBase
         return $this->elem;
     }
 
-    
-
+    /**
+     * 具体框架自己实现怎么添加列
+     *
+     * @param string $field
+     * @param string $label
+     * @return void
+     */
     public function addCol($field = '', $label = '')
     {
         $column = new Col($field, $label);
         // $column->setGrid($this);
         return $column;
     }
+    public function addActionCol($label = '操作')
+    {
+        if($this->hasRowAction()){
+            $textLen = mb_strlen(implode('', array_column($this->rowActions, 'text')));
+            $iconLen = count(array_filter(array_column($this->rowActions, 'icon')));
+            $blankLen = count($this->rowActions);
+            $minWidth = ( $textLen + $iconLen + $blankLen ) * 15;
+            $this->col('', $label)->toolbar('#'.$this->elem.'-row-actions')->fixed('right')->width($minWidth);
+        }
+    }
 
     public function opTableRender()
     {
+        $this->addActionCol();
         $table = [];
 
         $table['elem']              = '#' . $this->elem;
         $table['height']            = $this->height;
-        $table['cols']              = [$this->cols()];
+        $table['cols']              = [$this->getCols()];
         $table['url']               = $this->url;
         $table['toolbar']           = $this->toolbar;
         $table['defaultToolbar']    = $this->defaultToolbar;
@@ -170,12 +186,4 @@ class Grid extends GridBase
         return json_encode($data, JSON_UNESCAPED_UNICODE);
     }
 
-    public function view($template = null)
-    {
-        if (!$template) {
-            $template = $this->template;
-        }
-        // $this->renderData = $this;
-        return $this->render($template);
-    }
 }

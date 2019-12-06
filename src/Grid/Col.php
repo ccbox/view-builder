@@ -23,7 +23,6 @@ class Col
 
     protected $field;
     protected $title;
-    protected $actions = [];
 
     protected $grid;
 
@@ -70,19 +69,8 @@ class Col
     //     $this->grid = $grid;
     // }
 
-    // $type = jump 跳转, msg 提示, confirm 确认后操作（ajax，如删除） 
-    // $style = btn, link, '[css_style]'
-    public function addAction($name, $url, $icon = null, $type='jump', $msg = null, $style = 'btn')
-    {
-        $this->actions[] = [
-            'name'  => $name,
-            'url'   => $url,
-            'icon'   => $icon,
-            'type'  => $type,
-            'msg'   => $msg,
-            'style' => $style
-        ];
-        return $this;
-    }
+    
+    public function getColConfig()
+    {  }
 
 }

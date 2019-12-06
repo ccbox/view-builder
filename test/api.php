@@ -19,6 +19,12 @@ $type_arr = [
     'table',
 ];
 
+$respon = [
+    "code" => 0,
+    "msg" => "",
+    "data" => ""
+];
+
 if(in_array($type, $type_arr)){
 
     $file = './data_'.$type.'.php';
@@ -48,6 +54,8 @@ if(in_array($type, $type_arr)){
 
 }else{
 
-    echo 'Ooops...';
+    $respon['code'] = 404;
+    $respon['msg'] = 'Ooops...';
+    echo json_encode($respon, JSON_UNESCAPED_UNICODE);
 
 }

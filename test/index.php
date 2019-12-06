@@ -23,9 +23,10 @@ $grid->page(2);
 
 $grid->title('表格头');
 
-$grid->toolbar('default');
+$grid->toolbar('#'.$grid->elem().'-toolbar');
 
-$api = str_replace('index.php', '',$_SERVER['REQUEST_URI']) . 'api.php?type=table';
+$api_url = str_replace('index.php', '',$_SERVER['REQUEST_URI']) . 'api.php';
+$api = $api_url . '?type=table';
 $grid->url($api);
 
 $grid->col()->type('checkbox');
@@ -38,11 +39,19 @@ $grid->col('experience', '积分');
 $grid->col('score', '评分');
 $grid->col('classify', '职业');
 $grid->col('wealth', '财富');
-$grid->col()->toolbar(function(){
-    return 'toolbar';
-});
 
-$grid->data($table['data']);
+$url_edit = $api_url . '?act=edit&id=###';
+
+$grid->rowAction(['text'=>'跳转', 'url'=>$url_edit, 'type'=>'jump']);
+$grid->rowAction(['text'=>'新开', 'url'=>$url_edit, 'type'=>'blank']);
+$grid->rowAction(['text'=>'AJAX无提示', 'url'=>$url_edit, 'type'=>'get']);
+$grid->rowAction(['text'=>'AJAX带提示', 'url'=>$url_edit, 'type'=>'get', 'msg'=>'直接请求']);
+$grid->rowAction(['text'=>'删除', 'url'=>$url_edit, 'type'=>'get', 'event'=>'delete', 'msg'=>'确定删除此信息？', 'class'=>'layui-btn-danger']);
+$grid->rowAction(['text'=>'确认框', 'url'=>$url_edit, 'type'=>'get', 'event'=>'confirm', 'icon'=>'home', 'msg'=>'带有取消按钮的弹窗（无del操作）']);
+$grid->rowAction(['text'=>'消息弹窗', 'url'=>$url_edit, 'event'=>'msg', 'msg'=>'只有一个确认按钮的弹窗']);
+$grid->rowAction(['text'=>'提示', 'event'=>'tips', 'msg'=>'按钮都没有的提示']);
+
+// $grid->data($table['data']);
 
 $grid_html = $grid->view();
 

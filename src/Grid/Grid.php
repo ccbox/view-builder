@@ -17,6 +17,7 @@ use Ccbox\ViewBuilder\Grid\Col;
 use Ccbox\ViewBuilder\Traits\CallAttr;
 use Ccbox\ViewBuilder\Traits\Render;
 
+// 后期可以将父类改为工厂类更方便
 class Grid implements ViewInterface
 {
     use CallAttr;
@@ -25,8 +26,10 @@ class Grid implements ViewInterface
     protected $attributes;
     
     protected $data;
+    protected $pkey = 'id';
     protected $cols = [];
     protected $rows = [];
+    protected $rowActions = [];
 
     use Render;
     // php trait 变量类型为数组时 不能被父类子类同时use
@@ -68,6 +71,42 @@ class Grid implements ViewInterface
     public function row()
     { }
 
+    /**
+     * 添加每行的操作（操作列）
+     *
+     * @param array $conf
+     *      @param string $text      文字
+     *      @param string $url       链接
+     *      @param string $type      链接类型： jump 直接跳转, blank 新窗口跳转, post/get Ajax请求
+     *      @param string $event     前置事件： msg 弹出消息, confirm 需要确认, tips 提示, delete 删除(会弹出确认窗口)
+     *      @param string $icon
+     *      @param string $msg
+     *      @param string $class
+     *      @param string $style
+     * @param array $more
+     * @return void
+     */
+    public function rowAction(array $conf, array $more = null)
+    {
+        $this->rowActions[] = [
+            'text'  => $conf['text']    ?? null,
+            'url'   => $conf['url']     ?? null,
+            'type'  => $conf['type']    ?? 'get',
+            'event' => $conf['event']   ?? null,
+            'icon'  => $conf['icon']    ?? null,
+            'msg'   => $conf['msg']     ?? null,
+            'class' => $conf['class']   ?? null,
+            'style' => $conf['style']   ?? null,
+            'more'  => $more,
+        ];
+        return $this;
+    }
+
+    public function hasRowAction()
+    {
+        return !empty($this->rowActions);
+    }
+
     public function col($field = '', $label = '')
     {
         $title = array_filter([$label]);
@@ -76,6 +115,7 @@ class Grid implements ViewInterface
         return $column;
     }
 
+    // 抽象方法：业务层实现
     public function addCol($field = '', $label = '')
     {
         $column = new Col($field, $label);
@@ -83,7 +123,15 @@ class Grid implements ViewInterface
         return $column;
     }
 
-    public function cols()
+    // 抽象方法：业务层实现
+    public function addColOfAction($label = '操作')
+    {
+        if($this->hasRowAction()){
+            
+        }
+    }
+
+    public function getCols()
     {
         if ($this->cols) {
             $cols = array_map(function ($col) {
@@ -95,7 +143,7 @@ class Grid implements ViewInterface
 
     public function opCols()
     {
-        return json_encode($this->cols(), JSON_UNESCAPED_UNICODE);
+        return json_encode($this->getCols(), JSON_UNESCAPED_UNICODE);
     }
 
     public function opData()
