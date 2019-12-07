@@ -1,5 +1,5 @@
 {
-    "name": "zd/view-builder",
+    "name": "ccbox/view-builder",
     "description": "View builder of grid / form , for admin. Base on layui.",
     "type": "library",
     "require": {
@@ -8,14 +8,14 @@
     "license": "MIT",
     "authors": [
         {
-            "name": "ccbox",
+            "name": "Dada",
             "email": "ccbox.net@163.com"
         }
     ],
     "minimum-stability": "dev",
     "autoload": {
         "psr-4": {
-            "Ccbox\\ViewBuilder\\": "./src/"
+            "Ccbox\\ViewBuilder\\": "src/"
         }
     }
 }
