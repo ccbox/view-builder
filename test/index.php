@@ -9,6 +9,8 @@
  * @link     https://github.com/ccbox/view-builder
  */
 
+require_once './_test_base.php';
+
 require_once '../vendor/autoload.php';
 
 // use Ccbox\ViewBuilder\Grid\Grid;

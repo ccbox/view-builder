@@ -9,6 +9,8 @@
  * @link     https://github.com/ccbox/view-builder
  */
 
+require_once './_test_base.php';
+
 $table = [];
 
 $table['header'] = [
