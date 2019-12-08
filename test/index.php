@@ -21,7 +21,7 @@ $table = require_once './data_table.php';
 
 $grid = new Grid();
 
-$grid->page(2);
+$grid->page(true);
 
 $grid->title('表格头');
 

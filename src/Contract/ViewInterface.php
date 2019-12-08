@@ -15,4 +15,6 @@ namespace Ccbox\ViewBuilder\Contract;
 interface ViewInterface
 {
     public function view($template);
+    public function js($type);
+    public function css($type);
 }

@@ -1,4 +1,8 @@
-<h3><?= $data->title ?></h3>
+<?php if($data->title){
+    echo '<h3>';
+    echo $data->title;
+    echo '</h3>';
+} ?>
 
 <table id="<?= $data->elem() ?>" lay-filter="<?= $data->elem() ?>-filter"></table>
 

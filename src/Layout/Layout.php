@@ -58,4 +58,10 @@ class Layout implements ViewInterface
         ];
         return $this->render($template);
     }
+    
+    public function js($type='arr')
+    {}
+
+    public function css($type='arr')
+    {}
 }

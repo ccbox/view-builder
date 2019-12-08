@@ -186,4 +186,20 @@ class Grid extends GridBase
         return json_encode($data, JSON_UNESCAPED_UNICODE);
     }
 
+    public function js($type='arr')
+    {
+        $res = [
+            '<script src="http://www.layuicdn.com/layui-v2.5.5/layui.js"></script>'
+        ];
+        return $type=='arr' ? $res : implode('',$res);
+    }
+    
+    public function css($type='arr')
+    {
+        $res = [
+            '<link rel="stylesheet" type="text/css" href="http://www.layuicdn.com/layui-v2.5.5/css/layui.css" />'
+        ];
+        return $type=='arr' ? $res : implode('',$res);
+    }
+
 }

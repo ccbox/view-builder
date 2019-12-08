@@ -159,4 +159,10 @@ class Grid implements ViewInterface
         // $this->renderData = $this;
         return $this->render($template);
     }
+    
+    public function js($type='arr')
+    {}
+
+    public function css($type='arr')
+    {}
 }
