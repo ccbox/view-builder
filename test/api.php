@@ -24,7 +24,12 @@ $type_arr = [
 $respon = [
     "code" => 0,
     "msg" => "",
-    "data" => ""
+    "data" => "",
+];
+
+$respon["request"] = [
+    'get' => $_GET,
+    'post' => $_POST
 ];
 
 if(in_array($type, $type_arr)){
@@ -52,6 +57,10 @@ if(in_array($type, $type_arr)){
         $respon['data'] = $list;
     }
 
+    $respon["request"] = [
+        'get' => $_GET,
+        'post' => $_POST
+    ];
     echo json_encode($respon, JSON_UNESCAPED_UNICODE);
 
 }else{

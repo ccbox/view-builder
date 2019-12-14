@@ -27,6 +27,7 @@ class Grid implements ViewInterface
     
     protected $data;
     protected $pkey = 'id';
+    protected $filterFields = [];
     protected $cols = [];
     protected $rows = [];
     protected $rowActions = [];
@@ -66,6 +67,30 @@ class Grid implements ViewInterface
             $this->data = $data;
         }
         return $this->data;
+    }
+
+    // 表单控件的简单实现
+    public function filter(array $conf)
+    {
+        $this->filterFields[$conf['name']] = [
+            'text'          => $conf['text'],
+            'text_style'    => $conf['text_style'] ?? 'width:auto',
+            'type'          => $conf['type'] ?? 'text',
+            'name'          => $conf['name'],
+            'verify'        => $conf['verify'] ?? null,
+            'placeholder'   => $conf['placeholder'] ?? null,
+            'value'         => $conf['value'] ?? null,
+            'autocomplete'  => $conf['autocomplete'] ?? 'off',
+            'option'        => $conf['option'] ?? null,
+            'class'         => $conf['class'] ?? null,
+            'style'         => $conf['style'] ?? null,
+        ];
+        return $this;
+    }
+    
+    public function hasFilter()
+    {
+        return !empty($this->filterFields);
     }
 
     public function row()

@@ -150,6 +150,9 @@ class Grid extends GridBase
             $iconLen = count(array_filter(array_column($this->rowActions, 'icon')));
             $blankLen = count($this->rowActions);
             $minWidth = ( $textLen + $iconLen + $blankLen ) * 15;
+            if($blankLen<2){
+                $minWidth += 20;
+            }
             $this->col('', $label)->toolbar('#'.$this->elem.'-row-actions')->fixed('right')->width($minWidth);
         }
     }

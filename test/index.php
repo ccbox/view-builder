@@ -21,18 +21,23 @@ $table = require_once './data_table.php';
 
 $grid = new Grid();
 
-$grid->page(true);
-
 $grid->title('表格头');
 
-$grid->toolbar('#'.$grid->elem().'-toolbar');
+$grid->page(true);
 
-$api_url = str_replace('index.php', '',$_SERVER['REQUEST_URI']) . 'api.php';
+// $api_url = str_replace('index.php', '',$_SERVER['REQUEST_URI']) . 'api.php';
+$api_url = str_replace('index.php', '',$_SERVER['PHP_SELF']) . 'api.php';
 $api = $api_url . '?type=table';
 $grid->url($api);
 
-$grid->col()->type('checkbox');
-// $grid->col('id', 'ID')->width(80)->sort()->fixed('left');
+$grid->filter(['text'=>'关键词', 'type'=>'text', 'name'=>'keyword', 'style'=>'width:200px', 'placeholder'=>'请输入关键词']);
+$grid->filter(['text'=>'类型', 'type'=>'select', 'name'=>'ftype', 'option'=>['normal'=>'正常', 'hot'=>'热门']]);
+$grid->filter(['text'=>'状态', 'type'=>'select', 'name'=>'status', 'option'=>['normal'=>'激活的', 'hot'=>'热门'], 'value'=>'hot']);
+
+$grid->toolbar('#'.$grid->elem().'-toolbar');
+
+$grid->col()->type('checkbox')->fixed('left');
+$grid->col('id', 'ID')->width(80)->sort()->fixed('left');
 $grid->col('username', '用户名');
 $grid->col('sex', '性别');
 $grid->col('city', '城市');
