@@ -15,12 +15,14 @@ namespace Ccbox\ViewBuilder\Grid;
 use Ccbox\ViewBuilder\Contract\ViewInterface;
 use Ccbox\ViewBuilder\Grid\Col;
 use Ccbox\ViewBuilder\Traits\CallAttr;
+use Ccbox\ViewBuilder\Traits\Depends;
 use Ccbox\ViewBuilder\Traits\Render;
 
 // 后期可以将父类改为工厂类更方便
 class Grid implements ViewInterface
 {
     use CallAttr;
+    use Depends;
     
     protected $_model;
     protected $attributes;
@@ -37,9 +39,9 @@ class Grid implements ViewInterface
     // 模板：从view目录开始，结尾不用带文件后缀
     protected $template = 'grid.grid';
 
-    public function __construct($data = null)
+    public function __construct($config = null)
     {
-        $this->data($data);
+        $this->dependInit($config);
     }
 
     protected function confAttribute($name = null, $value = null)
@@ -185,9 +187,4 @@ class Grid implements ViewInterface
         return $this->render($template);
     }
     
-    public function js($type='arr')
-    {}
-
-    public function css($type='arr')
-    {}
 }

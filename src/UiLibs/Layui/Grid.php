@@ -112,10 +112,20 @@ class Grid extends GridBase
     
     protected $template = 'layui.grid';
 
-    public function __construct($data = null, $elem = null, $title = null)
+    public function __construct($config = null, $elem = null, $title = null)
     {
-        parent::__construct($data);
+        parent::__construct($config);
 
+        if(empty($this->js())){
+            $this->setDepend('js', [
+                '<script src="http://www.layuicdn.com/layui-v2.5.5/layui.js"></script>'
+            ]);
+        }
+        if (empty($this->css())) {
+            $this->setDepend('css', [
+                '<link rel="stylesheet" type="text/css" href="http://www.layuicdn.com/layui-v2.5.5/css/layui.css" />'
+            ]);
+        }
         $this->confAttribute('title', $title);
         $this->setElem($elem);
     }
@@ -187,22 +197,6 @@ class Grid extends GridBase
         $data = array_filter($table);
 
         return json_encode($data, JSON_UNESCAPED_UNICODE);
-    }
-
-    public function js($type='arr')
-    {
-        $res = [
-            '<script src="http://www.layuicdn.com/layui-v2.5.5/layui.js"></script>'
-        ];
-        return $type=='arr' ? $res : implode('',$res);
-    }
-    
-    public function css($type='arr')
-    {
-        $res = [
-            '<link rel="stylesheet" type="text/css" href="http://www.layuicdn.com/layui-v2.5.5/css/layui.css" />'
-        ];
-        return $type=='arr' ? $res : implode('',$res);
     }
 
 }

@@ -14,10 +14,13 @@
 namespace Ccbox\ViewBuilder\Layout;
 
 use Ccbox\ViewBuilder\Contract\ViewInterface;
+use Ccbox\ViewBuilder\Traits\Depends;
 use Ccbox\ViewBuilder\Traits\Render;
 
 class Layout implements ViewInterface
 {
+    use Depends;
+
     protected $title = ' ';
     protected $description = ' ';
 
@@ -55,13 +58,11 @@ class Layout implements ViewInterface
             'title' => $this->title,
             'description' => $this->description,
             'html' => $this->html,
+            'depends' =>[
+                'js' =>$this->js('str'),
+                'css' =>$this->css('str')
+            ]
         ];
         return $this->render($template);
     }
-    
-    public function js($type='arr')
-    {}
-
-    public function css($type='arr')
-    {}
 }

@@ -19,19 +19,24 @@ use Ccbox\ViewBuilder\Layout\Layout;
 
 $table = require_once './data_table.php';
 
+$base_url = str_replace('index.php', '',$_SERVER['PHP_SELF']);
+
 $grid = new Grid();
+
+// 设置自定义的脚本(本地文件)
+$assets = $base_url . '../assets/';
+$grid->setDepend('js', ['<script src="'.$assets.'/layui/layui.all.js"></script>']);
 
 $grid->title('表格头');
 
 $grid->page(true);
 
-// $api_url = str_replace('index.php', '',$_SERVER['REQUEST_URI']) . 'api.php';
-$api_url = str_replace('index.php', '',$_SERVER['PHP_SELF']) . 'api.php';
+$api_url = $base_url . 'api.php';
 $api = $api_url . '?type=table';
 $grid->url($api);
 
 $grid->filter(['text'=>'关键词', 'type'=>'text', 'name'=>'keyword', 'style'=>'width:200px', 'placeholder'=>'请输入关键词']);
-$grid->filter(['text'=>'类型', 'type'=>'select', 'name'=>'ftype', 'option'=>['normal'=>'正常', 'hot'=>'热门']]);
+$grid->filter(['text'=>'类型', 'type'=>'select', 'name'=>'fftype', 'option'=>['normal'=>'正常', 'hot'=>'热门']]);
 $grid->filter(['text'=>'状态', 'type'=>'select', 'name'=>'status', 'option'=>['normal'=>'激活的', 'hot'=>'热门'], 'value'=>'hot']);
 
 $grid->toolbar('#'.$grid->elem().'-toolbar');
@@ -63,6 +68,9 @@ $grid->rowAction(['text'=>'提示', 'event'=>'tips', 'msg'=>'按钮都没有的�
 $grid_html = $grid->view();
 
 $content = new Layout();
+// layout还没有定义ui
+$content->setDepend('js', $grid->js());
+$content->setDepend('css', $grid->css());
 
 $html = $content
         ->title('页面标题')
