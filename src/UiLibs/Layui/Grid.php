@@ -196,6 +196,14 @@ class Grid extends GridBase
         
         $data = array_filter($table);
 
+        if(isset($this->loading)){
+            $data['loading'] = $this->loading;
+        }
+
+        if(isset($this->autoSort)){
+            $data['autoSort'] = $this->autoSort;
+        }
+
         return json_encode($data, JSON_UNESCAPED_UNICODE);
     }
 

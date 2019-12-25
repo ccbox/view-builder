@@ -99,6 +99,19 @@
                     break;
             };
         });
+        
+        //监听排序事件
+        table.on('sort(<?php echo $data->elem(); ?>-filter)', function(obj) {
+            // console.log(obj.field); //当前排序的字段名
+            // console.log(obj.type); //当前排序类型：desc（降序）、asc（升序）、null（空对象，默认排序）
+            table.reload('<?php echo $data->elem(); ?>', {
+                initSort: obj //记录初始排序，如果不设的话，将无法标记表头的排序状态。
+                ,where: { //请求参数（注意：这里面的参数可任意定义，并非下面固定的格式）
+                    orderby: obj.field +" "+ obj.type //排序方式
+                }
+            });
+            return false;
+        });
 
         //监听行工具事件
         table.on('tool(<?php echo $data->elem(); ?>-filter)', function(obj) {
@@ -120,7 +133,7 @@
                             type,
                             dataType: "json",
                             success: function(data) {
-                                console.log(data);
+                                // console.log(data);
                                 layer.msg("请求成功：" + data.code + " - " + data.msg);
                                 if (event == "delete") {
                                     obj.del();

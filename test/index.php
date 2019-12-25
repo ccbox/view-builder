@@ -25,7 +25,7 @@ $grid = new Grid();
 
 // 设置自定义的脚本(本地文件)
 $assets = $base_url . '../assets/';
-$grid->setDepend('js', ['<script src="'.$assets.'/layui/layui.all.js"></script>']);
+// $grid->setDepend('js', ['<script src="'.$assets.'/layui/layui.all.js"></script>']);
 
 $grid->title('表格头');
 
@@ -35,6 +35,8 @@ $api_url = $base_url . 'api.php';
 $api = $api_url . '?type=table';
 $grid->url($api);
 
+$grid->autoSort(false);
+
 $grid->filter(['text'=>'关键词', 'type'=>'text', 'name'=>'keyword', 'style'=>'width:200px', 'placeholder'=>'请输入关键词']);
 $grid->filter(['text'=>'类型', 'type'=>'select', 'name'=>'fftype', 'option'=>['normal'=>'正常', 'hot'=>'热门']]);
 $grid->filter(['text'=>'状态', 'type'=>'select', 'name'=>'status', 'option'=>['normal'=>'激活的', 'hot'=>'热门'], 'value'=>'hot']);
@@ -42,9 +44,9 @@ $grid->filter(['text'=>'状态', 'type'=>'select', 'name'=>'status', 'option'=>[
 $grid->toolbar('#'.$grid->elem().'-toolbar');
 
 $grid->col()->type('checkbox')->fixed('left');
-$grid->col('id', 'ID')->width(80)->sort()->fixed('left');
+$grid->col('id', 'ID')->width(80)->sort('true')->fixed('left');
 $grid->col('username', '用户名');
-$grid->col('sex', '性别');
+$grid->col('sex', '性别')->sort('true');
 $grid->col('city', '城市');
 $grid->col('sign', '签名');
 $grid->col('experience', '积分');
